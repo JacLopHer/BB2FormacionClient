@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "../Styles/login.css";
+import AppBar from "./AppBar";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -16,6 +17,7 @@ export default function Login() {
 
   return (
     <>
+      <AppBar></AppBar>
       <div className="loginformcontainer">
         <h1>Login</h1>
         <Form onSubmit={handleSubmit}>

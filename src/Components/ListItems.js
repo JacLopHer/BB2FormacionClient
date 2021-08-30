@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, Container, Table, Input } from "reactstrap";
 import TableHeader from "./TableHeader";
+import AppBar from "./AppBar";
+
 const url = "http://localhost:8080/store/items";
 
 const MyFirstComponent = (props) => {
@@ -18,7 +20,9 @@ const MyFirstComponent = (props) => {
   }, []);
   return (
     <>
+      <AppBar></AppBar>
       <h5>Items</h5>
+
       <Table hover responsive="sm">
         <TableHeader />
         <tbody>
