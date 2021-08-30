@@ -21,7 +21,7 @@ const MyFirstComponent = (props) => {
   return (
     <>
       <AppBar></AppBar>
-      <h5>Items</h5>
+      <h1 style={{ marginLeft: "2rem" }}>Items</h1>
 
       <Table hover responsive="sm">
         <TableHeader />

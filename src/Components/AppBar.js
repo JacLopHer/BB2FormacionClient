@@ -42,14 +42,17 @@ export default function ButtonAppBar() {
             News
           </Typography>
           <Link to="/">
-            <Button color="inherit">Home</Button>
+            <Button color="">Home</Button>
           </Link>
-
-          <Button color="inherit">Items</Button>
-          <Button color="inherit" disabled={window.admin !== "false"}>
-            Users
-          </Button>
-          <Button color="inherit">Login</Button>
+          <Link to="/items">
+            <Button color="inherit">Items</Button>
+          </Link>
+          <Link to="/users">
+            <Button color="inherit">Users</Button>
+          </Link>
+          <Link to="/login">
+            <Button color="inherit">Login</Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

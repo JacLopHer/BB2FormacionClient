@@ -5,7 +5,7 @@ export const Home = () => {
   return (
     <div>
       <AppBar></AppBar>
-      <h1>Home</h1>
+      <h1 style={{ marginLeft: "2rem" }}>Home</h1>
     </div>
   );
 };

@@ -3,6 +3,8 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "../Styles/login.css";
 import AppBar from "./AppBar";
 
+const url = "http://localhost:8080/store/user/";
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,11 +20,11 @@ export default function Login() {
   return (
     <>
       <AppBar></AppBar>
+      <h1 style={{ marginLeft: "2rem" }}>Login</h1>
       <div className="loginformcontainer">
-        <h1>Login</h1>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label for="username">Email</Label>
+            <Label for="username">Username</Label>
             <Input
               autoFocus={true}
               type="text"
