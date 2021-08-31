@@ -1,11 +1,12 @@
 import "./App.css";
-
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import React from "react";
-import Login from "./components/Login";
+import React, { useState } from "react";
 import Home from "./components/Home";
 import Error from "./components/Error";
 import ListItems from "./components/ListItems";
+import ListUsers from "./components/ListUsers";
+import Login from "./components/Login";
+import EditItem from "./components/edits/EditItem";
 
 function App() {
   return (
@@ -14,14 +15,17 @@ function App() {
         <Route exact path="/" component={Home}>
           <Home />
         </Route>
-        <Route path="/login" component={Login}>
+        <Route exact path="/login" component={Login}>
           <Login />
         </Route>
-        <Route path="/items" component={ListItems}>
-          <Error />
+        <Route exact path="/items" component={ListItems}>
+          <ListItems />
         </Route>
-        <Route path="*" component={Error}>
-          <Error />
+        <Route path="/items/details/:id" component={EditItem}>
+          <EditItem />
+        </Route>
+        <Route exact path="/users" component={ListUsers}>
+          <ListUsers />
         </Route>
         <Route path="*" component={Error}>
           <Error />

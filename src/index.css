@@ -134,7 +134,7 @@ p {
 /* section */
 .section,
 .container {
-  width: 90vw;
+  width: 130vw;
   margin: 0 auto;
   max-width: var(--max-width);
 }
@@ -147,7 +147,6 @@ p {
 
 .container {
   text-align: center;
-  margin-top: 5rem;
 }
 
 .btn {

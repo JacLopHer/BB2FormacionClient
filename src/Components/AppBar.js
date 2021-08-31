@@ -42,16 +42,16 @@ export default function ButtonAppBar() {
             News
           </Typography>
           <Link to="/">
-            <Button color="">Home</Button>
+            <Button color="secondary">Home</Button>
           </Link>
           <Link to="/items">
-            <Button color="inherit">Items</Button>
+            <Button color="secondary">Items</Button>
           </Link>
           <Link to="/users">
-            <Button color="inherit">Users</Button>
+            <Button color="secondary">Users</Button>
           </Link>
           <Link to="/login">
-            <Button color="inherit">Login</Button>
+            <Button color="secondary">Login</Button>
           </Link>
         </Toolbar>
       </AppBar>

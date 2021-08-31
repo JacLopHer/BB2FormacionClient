@@ -2,17 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, Container, Table, Input } from "reactstrap";
 import TableHeader from "./TableHeader";
 import AppBar from "./AppBar";
+import { Link } from "react-router-dom";
+const url = "store/items";
 
-const url = "http://localhost:8080/store/items";
-
-const MyFirstComponent = (props) => {
+const ListItems = () => {
   const [items, setItems] = useState([]);
 
   const getItems = async () => {
     const response = await fetch(url);
     const items = await response.json();
     setItems(items);
-    console.log(items);
   };
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const MyFirstComponent = (props) => {
   return (
     <>
       <AppBar></AppBar>
-      <h1 style={{ marginLeft: "2rem" }}>Items</h1>
+      <h1 style={{ marginLeft: "2rem", marginTop: "2rem" }}>Items</h1>
 
       <Table hover responsive="sm">
         <TableHeader />
@@ -47,16 +46,15 @@ const MyFirstComponent = (props) => {
                   </td>
                   <td>{creator}</td>
                   <td>{creation}</td>
-                  {<td className="stateavaiable">{state}</td>}
+                  <td className="stateavaiable">{state}</td>
                   <td>{price} €</td>
-
                   <td>
                     <ButtonGroup>
                       <Button
                         size="sm"
                         color="primary"
-                        //tag={Link}
-                        //to={"/clients/" + client.id}
+                        tag={Link}
+                        to={`items/details/${item.id_item}`}
                       >
                         Edit
                       </Button>
@@ -79,4 +77,4 @@ const MyFirstComponent = (props) => {
   );
 };
 
-export default MyFirstComponent;
+export default ListItems;

@@ -3,7 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "../Styles/login.css";
 import AppBar from "./AppBar";
 
-const url = "http://localhost:8080/store/user/";
+const url = "http://localhost:8080/store/users/name/";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -15,12 +15,26 @@ export default function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    getUser(username, password);
   }
 
+  const getUser = async (username, password) => {
+    const response = await fetch(`users/name/${username}`);
+    if (response.statusText === "Internal Server Error") {
+      alert("Invalid username");
+    }
+    const user = await response.json();
+    if (user.password === password) {
+      alert("Login successfull");
+    } else {
+      alert("Invalid password");
+    }
+  };
   return (
     <>
       <AppBar></AppBar>
-      <h1 style={{ marginLeft: "2rem" }}>Login</h1>
+
+      <h1 style={{ marginLeft: "2rem", marginTop: "2rem" }}>Login</h1>
       <div className="loginformcontainer">
         <Form onSubmit={handleSubmit}>
           <FormGroup>
