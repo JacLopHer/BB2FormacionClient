@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState, useEffect } from "react";
 import Edit from "@material-ui/icons/Edit";
 import MUIDataTable from "mui-datatables";
 import Delete from "@material-ui/icons/Delete";
@@ -18,32 +18,7 @@ const ListUsers = () => {
   useEffect(() => {
     getUsers();
   }, [url]);
-  /*
-  const data = [
-    {
-      user_id: "1",
-      username: "Hola",
-      password: "pass1",
-      admin: "true",
-      active: "false",
-    },
 
-    {
-      user_id: "2",
-      username: "Hola2",
-      password: "pass2",
-      admin: "false",
-      active: "false",
-    },
-    {
-      user_id: "3",
-      username: "Hola",
-      password: "pass3",
-      admin: "false",
-      active: "false",
-    },
-  ];
-*/
   const columns = [
     {
       name: "id_user",
