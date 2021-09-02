@@ -8,7 +8,7 @@ import ListUsers from "./components/ListUsers";
 import Login from "./components/Login";
 import EditItem from "./components/edits/EditItem";
 import UserEdit from "./components/edits/UserEdit";
-
+import NewItem from "./components/NewItem";
 function App() {
   return (
     <Router>
@@ -17,6 +17,7 @@ function App() {
         <Route exact path="/login" component={Login}></Route>
         <Route exact path="/items" component={ListItems}></Route>
         <Route path="/items/details/:id" component={EditItem}></Route>
+        <Route path="/items/newItem" component={NewItem}></Route>
         <Route exact path="/users" component={ListUsers}></Route>
         <Route path="/users/:id" component={UserEdit} />
         <Route path="*" component={Error}></Route>

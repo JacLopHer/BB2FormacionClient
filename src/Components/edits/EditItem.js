@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
-import FormLabel from "@material-ui/core/FormLabel";
 import Button from "@material-ui/core/Button";
 import AppBar from "../AppBar";
 import "../../Styles/ItemDetails.css";
 import { Link } from "react-router-dom";
-import "date-fns";
+import { format } from "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-
-var DatePicker = require("reactstrap-date-picker");
+import { FormControl, Grid } from "@material-ui/core";
 
 function EditItem(props) {
   const id = props.match.params.id;
   const fetchURL = "http://localhost:8080/store/item/" + id;
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    setFormValues({
+      ...formValues,
+      creation: format(date, "yyyy-MM-dd"),
+    });
   };
   const [item, setItem] = useState();
 
@@ -32,8 +31,8 @@ function EditItem(props) {
     creation: "",
     state: "",
     price: "",
-    priceReductions: [{}],
-    suppliers: [{}],
+    priceReductions: [],
+    suppliers: [],
   };
   const [formValues, setFormValues] = useState(defaultValues);
 
@@ -48,9 +47,11 @@ function EditItem(props) {
   const getItem = async () => {
     const response = await fetch(fetchURL);
     const element = await response.json();
+
     setFormValues({
       ...element,
     });
+    formValues.suppliers = element.suppliers;
   };
 
   const handleSubmit = async (e) => {
@@ -78,100 +79,136 @@ function EditItem(props) {
     <>
       <AppBar></AppBar>
       <h1 style={{ marginLeft: "2rem", marginTop: "2rem" }}>Item detail</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="detailsform" style={{ marginTop: "2rem" }}>
-          <div className="row itemDataRow">
-            <TextField
-              InputLabelProps={{
-                shrink: true,
-              }}
-              label="Code"
-              color="primary"
-              id="itemcode-input"
-              name="itemcode"
-              type="text"
-              value={formValues.code_product}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="row itemDataRow">
-            <TextField
-              label="Description"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              id="description-input"
-              name="description"
-              type="text"
-              value={formValues.description}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="row itemDataRow">
-            <TextField
-              InputLabelProps={{
-                shrink: true,
-              }}
-              label="Price"
-              id="price-input"
-              name="price"
-              type="text"
-              value={formValues.price}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="row itemDataRow">
-            <TextField
-              id="creation"
-              label="Creation"
-              type="date"
-              value={formValues.creation}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="row">
-            <TextField
-              id="creator-input"
-              label="Creator"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name="creator"
-              type="text"
-              value={formValues.creation}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="row" style={{ marginTop: "2rem" }}>
-            <Button
-              size="large"
-              variant="contained"
-              color="primary"
-              style={{ marginRight: "2rem" }}
-              onClick={handleSubmit}
-            >
-              Save
-            </Button>
-            <Button
-              size="large"
-              variant="contained"
-              color="secondary"
-              component={Link}
-              to="/items"
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
+      <form>
+        <Grid container justify="space-between" alignItems="center">
+          <Grid
+            item
+            justify="space-between"
+            alignItems="center"
+            direction="column"
+          >
+            <Grid item className="formItem" sm={12}>
+              <FormControl variant="outlined">
+                <TextField
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  label="Code"
+                  color="primary"
+                  id="itemcode-input"
+                  name="itemcode"
+                  type="text"
+                  value={formValues.code_product}
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item className="formItem" sm={12}>
+              <FormControl variant="outlined">
+                <TextField
+                  label="Description"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  id="description-input"
+                  name="description"
+                  type="text"
+                  value={formValues.description}
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item className="formItem" sm={12}>
+              <FormControl variant="outlined">
+                <TextField
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  label="Price"
+                  id="price-input"
+                  name="price"
+                  type="text"
+                  value={formValues.price}
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item className="formItem" sm={12}>
+              <FormControl variant="outlined">
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="MM/dd/yyyy"
+                    className="datepicker"
+                    margin="normal"
+                    id="creation"
+                    label="Creation"
+                    value={formValues.creation}
+                    onChange={handleDateChange}
+                    KeyboardButtonProps={{
+                      "aria-label": "change date",
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </FormControl>
+            </Grid>
+            <Grid item className="formItem" sm={12}>
+              <FormControl variant="outlined">
+                <TextField
+                  id="creator-input"
+                  label="Creator"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  name="creator"
+                  type="text"
+                  value={formValues.creator}
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            container
+            sm={6}
+            justify="space-between"
+            alignItems="center"
+            directions="column"
+          >
+            <FormControl variant="outlined">
+              <Grid item className="formItem" sm={12}>
+                <ol>
+                  {formValues.suppliers.map((supplier) => {
+                    return (
+                      <>
+                        <li>
+                          {supplier.name} | {supplier.country}
+                        </li>
+                      </>
+                    );
+                  })}
+                </ol>
+              </Grid>
+              <Grid item className="formItem" sm={12}>
+                <ol>
+                  {formValues.priceReductions.map((priceReduction) => {
+                    return (
+                      <>
+                        <li>{priceReduction.reduced_price} %</li>
+                      </>
+                    );
+                  })}
+                </ol>
+              </Grid>
+              <Grid item className="formItem" sm={12}></Grid>
+            </FormControl>
+          </Grid>
+        </Grid>
       </form>
     </>
   );

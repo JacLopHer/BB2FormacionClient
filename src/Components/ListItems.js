@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Edit from "@material-ui/icons/Edit";
+
 import MUIDataTable from "mui-datatables";
-import Delete from "@material-ui/icons/Delete";
 import AppBar from "./AppBar";
-import { Button, ButtonGroup, Container, Table, Input } from "reactstrap";
+import { Button } from "reactstrap";
 
 import { Link } from "react-router-dom";
 
@@ -72,34 +71,7 @@ const ListItems = () => {
         filter: true,
       },
     },
-    {
-      label: "ADMIN",
-      name: "admin",
-      options: {
-        filter: true,
-        customBodyRender: (value, tableMeta, updateValue) => {
-          if (value !== false) {
-            return <p>True</p>;
-          } else {
-            return <p>False</p>;
-          }
-        },
-      },
-    },
-    {
-      label: "STATE",
-      name: "active",
-      options: {
-        filter: true,
-        customBodyRender: (value, tableMeta, updateValue) => {
-          if (value !== false) {
-            return <p>True</p>;
-          } else {
-            return <p>False</p>;
-          }
-        },
-      },
-    },
+
     {
       name: "",
       options: {
@@ -108,15 +80,15 @@ const ListItems = () => {
         sort: false,
         empty: true,
         customBodyRender: (value, tableMeta, updateValue) => {
+          console.log(tableMeta.rowData);
           return (
             <Button
-              size="sm"
+              disabled={tableMeta.rowData[6] !== "ACTIVE"}
+              size="medium"
               color="danger"
               onClick={async () => {
                 await fetch(
-                  `http://localhost:8080/store/item/crud/discontinue/${
-                    tableMeta.rowIndex + 1
-                  }`,
+                  `http://localhost:8080/store/item/crud/discontinue/${tableMeta.rowData[0]}`,
                   {
                     method: "POST",
                     headers: {
@@ -125,7 +97,6 @@ const ListItems = () => {
                     },
                   }
                 ).then(() => {
-                  console.log("discotinued");
                   getData();
                   setData(data);
                 });
@@ -146,10 +117,11 @@ const ListItems = () => {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <Button
-              size="sm"
+              size="large"
               color="primary"
               tag={Link}
-              to={`items/details/${tableMeta.rowIndex + 1}`}
+              to={`items/details/${tableMeta.rowData[0]}`}
+              disabled={tableMeta.rowData[6] !== "ACTIVE"}
             >
               Edit
             </Button>
@@ -161,12 +133,20 @@ const ListItems = () => {
 
   const options = {
     filterType: "checkbox",
+
+    rowsPerPage: 30,
+    rowsPerPageOptions: [30, 50, 100],
   };
 
   return (
     <>
       <AppBar></AppBar>
-      <h1 style={{ marginLeft: "2rem", marginTop: "2rem" }}>Users</h1>
+      <h1 style={{ marginLeft: "2rem", marginTop: "2rem" }}>Items</h1>
+      <div className="container">
+        <Button color="primary" size="large" tag={Link} to={"items/newItem"}>
+          Add New Item
+        </Button>
+      </div>
       <MUIDataTable
         title={"Employee List"}
         columns={columns}

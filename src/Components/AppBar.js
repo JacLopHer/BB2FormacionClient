@@ -9,8 +9,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import { Link } from "react-router-dom";
 
-import Home from "./Home";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

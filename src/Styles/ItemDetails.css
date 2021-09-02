@@ -15,3 +15,23 @@
   margin-top: "2rem";
   margin-bottom: "2rem";
 }
+
+.suppliers {
+  padding: 2%;
+  margin-top: 2rem;
+  border: 1px solid black;
+  width: auto;
+}
+
+.suppliers li {
+  color: blue;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+}
+
+.datepicker {
+  width: 180px;
+}
