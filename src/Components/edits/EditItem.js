@@ -79,6 +79,22 @@ function EditItem(props) {
     <>
       <AppBar></AppBar>
       <h1 style={{ marginLeft: "2rem", marginTop: "2rem" }}>Item detail</h1>
+      <FormControl variant="outlined">
+        <Grid item className="formItem" sm={0}>
+          {() => {
+            const currentState = formValues.state;
+            const color = currentState === "ACTIVE" ? "red" : "green";
+            return (
+              <FormControl variant="outlined">
+                <Grid item className="formItem" sm={0}>
+                  <h3>{formValues.state}</h3>
+                </Grid>
+              </FormControl>
+            );
+          }}
+          <h3>{formValues.state}</h3>
+        </Grid>
+      </FormControl>
       <form>
         <Grid container justify="space-between" alignItems="center">
           <Grid
@@ -175,7 +191,7 @@ function EditItem(props) {
           <Grid
             item
             container
-            sm={6}
+            sm={8}
             justify="space-between"
             alignItems="center"
             directions="column"
@@ -183,6 +199,7 @@ function EditItem(props) {
             <FormControl variant="outlined">
               <Grid item className="formItem" sm={12}>
                 <ol>
+                  <h4>Suppliers</h4>
                   {formValues.suppliers.map((supplier) => {
                     return (
                       <>
@@ -194,20 +211,57 @@ function EditItem(props) {
                   })}
                 </ol>
               </Grid>
-              <Grid item className="formItem" sm={12}>
-                <ol>
-                  {formValues.priceReductions.map((priceReduction) => {
-                    return (
-                      <>
-                        <li>{priceReduction.reduced_price} %</li>
-                      </>
-                    );
-                  })}
-                </ol>
-              </Grid>
-              <Grid item className="formItem" sm={12}></Grid>
+              <FormControl variant="outlined">
+                <Grid item className="formItem" sm={12}>
+                  <ol>
+                    <h4>Price reductions</h4>
+                    {formValues.priceReductions.map((priceReduction) => {
+                      return (
+                        <>
+                          <li>{priceReduction.reduced_price} %</li>
+                        </>
+                      );
+                    })}
+                  </ol>
+                </Grid>
+              </FormControl>
+              <FormControl variant="outlined">
+                <Grid item className="formItem" sm={1}>
+                  {" "}
+                  <Button
+                    className="formItem"
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    style={{ marginRight: "2rem" }}
+                    onClick={handleSubmit}
+                  >
+                    Save
+                  </Button>
+                </Grid>
+                <Grid item className="formItem" sm={1}>
+                  <Button
+                    className="formItem"
+                    size="large"
+                    variant="contained"
+                    color="secondary"
+                    component={Link}
+                    to="/items"
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
+              </FormControl>
             </FormControl>
           </Grid>
+          <Grid
+            item
+            container
+            sm={1}
+            justify="space-between"
+            alignItems="center"
+            directions="column"
+          ></Grid>
         </Grid>
       </form>
     </>

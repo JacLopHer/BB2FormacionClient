@@ -35,3 +35,30 @@ form {
 .datepicker {
   width: 180px;
 }
+
+.container {
+  width: 100%;
+}
+
+.formItem {
+  padding: 1em 0em;
+  width: 15em;
+  margin-left: 10em;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+.dialog {
+  align-items: center;
+}
+
+.formItem {
+  padding: 1em;
+}
+
+.closeButtonDialog {
+  text-align: right;
+}
