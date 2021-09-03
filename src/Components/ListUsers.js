@@ -10,7 +10,12 @@ const ListUsers = () => {
   const [data, setData] = useState([]);
 
   const getUsers = async () => {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("authorization"),
+      },
+    });
     const items = await response.json();
     setData(items);
   };
