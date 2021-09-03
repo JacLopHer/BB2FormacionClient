@@ -45,13 +45,20 @@ function EditItem(props) {
   };
 
   const getItem = async () => {
-    const response = await fetch(fetchURL);
+    const response = await fetch(fetchURL, {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("authorization"),
+      },
+    });
     const element = await response.json();
 
     setFormValues({
       ...element,
     });
     formValues.suppliers = element.suppliers;
+    formValues.priceReductions = element.priceReductions;
+    console.log(formValues.priceReductions);
   };
 
   const handleSubmit = async (e) => {
@@ -62,6 +69,7 @@ function EditItem(props) {
       {
         method: formValues.id_item ? "PUT" : "POST",
         headers: {
+          Authorization: localStorage.getItem("authorization"),
           Accept: "application/json",
           "Content-Type": "application/json",
         },
@@ -187,11 +195,36 @@ function EditItem(props) {
                 />
               </FormControl>
             </Grid>
+            <Grid item className="formItem" sm={12}>
+              <Button
+                className="formItem"
+                size="large"
+                variant="contained"
+                color="primary"
+                style={{ marginRight: "2rem" }}
+                onClick={handleSubmit}
+              >
+                Save
+              </Button>
+            </Grid>
+            <Grid item className="formItem" sm={1}>
+              <Button
+                className="formItem"
+                size="large"
+                variant="contained"
+                color="secondary"
+                component={Link}
+                to="/items"
+              >
+                Cancel
+              </Button>
+            </Grid>
           </Grid>
+
           <Grid
             item
             container
-            sm={8}
+            sm={10}
             justify="space-between"
             alignItems="center"
             directions="column"
@@ -216,6 +249,7 @@ function EditItem(props) {
                   <ol>
                     <h4>Price reductions</h4>
                     {formValues.priceReductions.map((priceReduction) => {
+                      console.log(priceReduction);
                       return (
                         <>
                           <li>{priceReduction.reduced_price} %</li>
@@ -223,33 +257,6 @@ function EditItem(props) {
                       );
                     })}
                   </ol>
-                </Grid>
-              </FormControl>
-              <FormControl variant="outlined">
-                <Grid item className="formItem" sm={1}>
-                  {" "}
-                  <Button
-                    className="formItem"
-                    size="large"
-                    variant="contained"
-                    color="primary"
-                    style={{ marginRight: "2rem" }}
-                    onClick={handleSubmit}
-                  >
-                    Save
-                  </Button>
-                </Grid>
-                <Grid item className="formItem" sm={1}>
-                  <Button
-                    className="formItem"
-                    size="large"
-                    variant="contained"
-                    color="secondary"
-                    component={Link}
-                    to="/items"
-                  >
-                    Cancel
-                  </Button>
                 </Grid>
               </FormControl>
             </FormControl>

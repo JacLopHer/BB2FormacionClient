@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -39,7 +44,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
-          <Link to="/">
+          <Link to="/home">
             <Button color="secondary">Home</Button>
           </Link>
           <Link to="/items">
@@ -48,9 +53,14 @@ export default function ButtonAppBar() {
           <Link to="/users">
             <Button color="secondary">Users</Button>
           </Link>
-          <Link to="/login">
-            <Button color="secondary">Login</Button>
+          <Link to="/">
+            <Button color="secondary" onClick={handleLogout}>
+              Logout
+            </Button>
           </Link>
+          {/* <Link to="/login">
+            <Button color="secondary">Login</Button>
+          </Link> */}
         </Toolbar>
       </AppBar>
     </div>

@@ -7,13 +7,19 @@ import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const ListItems = () => {
-  const url = "store/items";
+  const url = "http://localhost:8080/store/items";
 
   const [data, setData] = useState([]);
 
   const getData = async () => {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("authorization"),
+      },
+    });
     const items = await response.json();
+    console.log(items);
     setData(items);
   };
 
@@ -80,7 +86,6 @@ const ListItems = () => {
         sort: false,
         empty: true,
         customBodyRender: (value, tableMeta, updateValue) => {
-          console.log(tableMeta.rowData);
           return (
             <Button
               disabled={tableMeta.rowData[6] !== "ACTIVE"}
@@ -92,6 +97,7 @@ const ListItems = () => {
                   {
                     method: "POST",
                     headers: {
+                      Authorization: localStorage.getItem("authorization"),
                       Accept: "application/json",
                       "Content-Type": "application/json",
                     },

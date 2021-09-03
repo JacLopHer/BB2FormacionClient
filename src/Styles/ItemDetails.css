@@ -62,3 +62,15 @@ form {
 .closeButtonDialog {
   text-align: right;
 }
+
+.margintop {
+  margin-top: "3rem";
+}
+
+.prueba {
+  color: red;
+}
+
+.inputFormsContainer {
+  width: 30%;
+}
